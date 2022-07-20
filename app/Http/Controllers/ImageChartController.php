@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cache;
+use Log;
+use App\Http\Controllers\WeatherController;
 
 class ImageChartController extends Controller
 {
@@ -12,6 +15,25 @@ class ImageChartController extends Controller
     private $labels = ["Forecast"];
     private $image_size = '700x200';
     private $data;
+    private $minutes = 600;
+
+    public function getWeatherImage(Request $request){
+        $request->validate([
+            'city' => 'required|string',
+        ]);
+
+        $city = $request->query('city');
+        $cacheKey = $this->cache_key_prefix . '-' . $city;
+
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        } else {
+            Cache::remember('forecast', $this->minutes, function () use ($city) {
+                $weatherController = new WeatherController();
+                $weatherController->get($city);
+            });
+        }
+    }
 
 
 
