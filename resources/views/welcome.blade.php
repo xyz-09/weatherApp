@@ -67,9 +67,10 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Weater / currency graph
+                   Currencies graph
                 </div>
-                <img src="./api/v1/weeakly?city=Gdynia"/>
+                <img src="{{route('currency','EUR')}}"/>
+                <img src="{{route('currencies',["currencies"=>'EUR,GBP,USD,JPY,BGN,PHP'])}}"/>
             </div>
         </div>
     </body>

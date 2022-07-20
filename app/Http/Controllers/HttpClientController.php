@@ -10,7 +10,7 @@ class HttpClientController extends Controller
     //
     public function get_json_data($url)
     {
-        $response = Http::acceptJson()->get($url);
+        $response = Http::withoutVerifying()->acceptJson()->get($url);
         return json_decode($response->getBody());
     }
 }

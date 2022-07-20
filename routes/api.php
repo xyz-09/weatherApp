@@ -15,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::get('weeakly', 'ImageChartController@getWeatherImage');  
+
+    Route::group(['prefix' => 'weekly'], function () {
+
+        Route::get('/', 'ImageChartController@getMultipleCurrencies')->name('currencies');
+
+        Route::get('/currency/{CURRENCY}', 'ImageChartController@getCurrencyImage')->where('CURRENCY', '[A-Za-z]+')->name('currency');
+
+    });
 });
