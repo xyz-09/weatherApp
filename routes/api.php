@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
 
     Route::group(['prefix' => 'weekly'], function () {
 
-        Route::get('/', 'ImageChartController@getMultipleCurrencies')->name('currencies');
+        Route::get('/', 'ImageChartController@getMultipleCurrenciesImage')->name('currencies');
 
         Route::get('/currency/{CURRENCY}', 'ImageChartController@getCurrencyImage')->where('CURRENCY', '[A-Za-z]+')->name('currency');
 
